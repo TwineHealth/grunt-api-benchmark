@@ -13,6 +13,8 @@ var giveMe = require('give-me');
 var path = require('path');
 var _ = require('underscore');
 
+var prepareInput;
+
 var GruntApiBenchmarks = function(grunt){
 
   return _.extend(this, {
@@ -35,6 +37,9 @@ var GruntApiBenchmarks = function(grunt){
     performBenchmark: function(inputFile, callback){
       grunt.log.writeln('Performing benchmarks for file: ' + inputFile.src);
       var input = this.getJSON(inputFile);
+      if (prepareInput) {
+        prepareInput(input);
+      }
       apiBenchmark.measure(input.service, input.endpoints, input.options, callback);
     },
     saveOutput: function(output, outputFileName, callback){
@@ -87,6 +92,7 @@ module.exports = function(grunt) {
         params = [],
         inputOutputs = {};
 
+    prepareInput = options.prepareInput;
     _.forEach(this.files, function(file){
       if(!_.has(inputOutputs, file.src))
         inputOutputs[file.src] = [path.join(options.output, file.dest)];
