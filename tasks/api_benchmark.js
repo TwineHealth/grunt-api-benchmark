@@ -71,9 +71,10 @@ module.exports = function(grunt) {
           gruntApiBenchmarks.saveOutput(output, destFile, function(){
             c++;
             if(err){
-              gruntApiBenchmarks.saveOutput(err, path.join(destFiles[0], '../errors.json'));
-              grunt.fail.warn('Various errors. See errors.json for more details.');
-              return callback();
+              return gruntApiBenchmarks.saveOutput(err, path.join(destFiles[0], '../errors.json'), function(){
+                grunt.fail.warn('Various errors. See errors.json for more details.');
+                callback();
+              });
             }
 
             if(c === destFiles.length)
