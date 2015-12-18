@@ -13,8 +13,6 @@ var giveMe = require('give-me');
 var path = require('path');
 var _ = require('underscore');
 
-var prepareInput;
-
 var GruntApiBenchmarks = function(grunt){
 
   return _.extend(this, {
@@ -35,10 +33,13 @@ var GruntApiBenchmarks = function(grunt){
       return grunt.file.readJSON(inputPath);      
     },
     performBenchmark: function(inputFile, callback){
-      grunt.log.writeln('Performing benchmarks for file: ' + inputFile.src);
-      var input = this.getJSON(inputFile);
-      if (prepareInput) {
-        prepareInput(input);
+      var input;
+      if (inputFile.input) {
+        grunt.log.writeln('Performing benchmarks');
+        input = inputFile.input;
+      } else {
+        grunt.log.writeln('Performing benchmarks for file: ' + inputFile.src);
+        input = this.getJSON(inputFile);
       }
       apiBenchmark.measure(input.service, input.endpoints, input.options, callback);
     },
@@ -93,7 +94,12 @@ module.exports = function(grunt) {
         params = [],
         inputOutputs = {};
 
-    prepareInput = options.prepareInput;
+    if (this.data.input) {
+      params.push([{ input: this.data.input }, _.map(this.data.output, function(outputFile) {
+        return path.join(options.output, outputFile);
+      })]);
+    }
+    
     _.forEach(this.files, function(file){
       if(!_.has(inputOutputs, file.src))
         inputOutputs[file.src] = [path.join(options.output, file.dest)];
