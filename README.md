@@ -1,6 +1,8 @@
 grunt-api-benchmark 
 =============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/matteofigus/grunt-api-benchmark.svg)](https://greenkeeper.io/)
+
 > A grunt plugin based on the nodejs module [api-benchmark](https://github.com/matteofigus/api-benchmark) that takes a config.json file like [this](https://github.com/matteofigus/grunt-api-benchmark/blob/master/test/fixtures/input2.json), makes some performance tests to your api, and creates an html export like this:
 
 ![https://raw.github.com/matteofigus/api-benchmark-www/master/public/images/screen-shot.png](https://raw.github.com/matteofigus/api-benchmark-www/master/public/images/screen-shot.png)
@@ -13,7 +15,7 @@ Build status: [![Build Status](https://secure.travis-ci.org/matteofigus/grunt-ap
 
 
 ## Getting Started
-This plugin requires Grunt `~0.4.1`
+This plugin requires Grunt `^1.0.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
